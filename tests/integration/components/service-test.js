@@ -1,26 +1,24 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
+import { module, test } from "qunit";
+import { setupRenderingTest } from "ember-qunit";
+import { render } from "@ember/test-helpers";
+import { hbs } from "ember-cli-htmlbars";
 
-module('Integration | Component | service', function(hooks) {
+module("Integration | Component | service", function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
+  test("it renders", async function (assert) {
+    const service = this.owner
+      .lookup("service:store")
+      .createRecord("cpt-code", {
+        description: "Group Therapy",
+        duration: 50,
+        rate: 300,
+      });
+    this.set("service", service);
+    await render(hbs`<Service @service={{this.service}} />`);
 
-    await render(hbs`<Service />`);
-
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      <Service>
-        template block text
-      </Service>
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.dom("[data-test-description]").hasText("Group Therapy");
+    assert.dom("[data-test-duration-rate]").hasText("50 minutes – $300");
+    assert.dom("[data-test-button]").hasText("Select");
   });
 });
