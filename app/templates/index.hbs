@@ -1,13 +1,15 @@
 {{#each @model as |service|}}
-  <div class="max-w-sm w-full lg:max-w-full lg:flex justify-center m-12">
+  <div class="w-full flex justify-center m-12">
     <div class="shadow rounded p-4 w-2/3 flex justify-between items-center">
       <div>
         <div class="text-gray-900 font-bold text-xl mb-2">{{service.description}}</div>
         <p class="text-gray-700 text-base">{{service.duration}} minutes – ${{service.rate}}</p>
       </div>
-      <button class="bg-gray-300 hover:bg-gray-400 text-gray-80 py-2 px-4 rounded">
-        Select
-      </button>
+      <LinkTo @route="location" @model={{service.id}}>
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-80 py-2 px-4 rounded">
+          Select
+        </button>
+      </LinkTo>
     </div>
   </div>
 {{/each}}
