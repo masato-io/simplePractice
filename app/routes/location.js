@@ -6,10 +6,10 @@ export default class LocationRoute extends Route {
   @service store;
 
   async model(params) {
-    let cptCodes;
+    let offices;
 
     try {
-      cptCodes = await this.store.query("offices", {
+      offices = await this.store.query("office", {
         filter: {
           clinicianId: ENV.clientInfo.clinicianID,
           cptCodeId: params.id,
@@ -20,6 +20,6 @@ export default class LocationRoute extends Route {
       return;
     }
 
-    return cptCodes;
+    return offices;
   }
 }
