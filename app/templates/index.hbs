@@ -1,1 +1,8 @@
-{{outlet}}
+{{#each @model as |service|}}
+  <div>
+    <li>{{service.id}}</li>
+    <li>{{service.description}}</li>
+    <li>{{service.duration}}</li>
+    <li>{{service.rate}}</li>
+  </div>
+{{/each}}
